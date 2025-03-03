@@ -1,0 +1,27 @@
+# protos/BUILD.bazel
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_java//java:defs.bzl", "java_proto_library")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "document_service_proto",
+    srcs = ["document_service.proto"],
+    deps = [
+        "//protos/schemas:document_proto",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Java proto library
+java_proto_library(
+    name = "protos_java",
+    deps = [":document_service_proto"],
+    visibility = ["//visibility:public"],
+)
+
+java_binary(
+    name = "proto_sources",
+    runtime_deps = [":protos_java"],
+    create_executable = False,  # Just create the JAR, not an executable
+)
