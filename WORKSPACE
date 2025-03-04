@@ -35,5 +35,31 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 rules_proto_toolchains()
 
+# gRPC dependencies
+http_archive(
+    name = "io_grpc_grpc_java",
+    sha256 = "c454e068bfb5d0b5bdb5e3d7e32cd1fc34aaf22202855e29e048f3ad338e57b2",
+    strip_prefix = "grpc-java-1.38.0",
+    urls = ["https://github.com/grpc/grpc-java/archive/v1.38.0.tar.gz"],
+)
+
+load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
+grpc_java_repositories()
+
+# Additional dependencies for gRPC Java
+http_archive(
+    name = "com_google_code_findbugs_jsr305",
+    build_file = "@io_grpc_grpc_java//third_party:jsr305.BUILD",
+    sha256 = "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+    urls = ["https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"],
+)
+
+http_archive(
+    name = "com_google_guava_guava",
+    build_file = "@io_grpc_grpc_java//third_party:guava.BUILD",
+    sha256 = "36a666e3b71ae7f0f0dca23654b67e086e6c93d192f60ba5dfd5519db6c288c8",
+    urls = ["https://repo1.maven.org/maven2/com/google/guava/guava/31.0.1-jre/guava-31.0.1-jre.jar"],
+)
+
 # We're not using Python or Go rules through Bazel anymore
 # Instead, we're using the protoc command directly in our scripts

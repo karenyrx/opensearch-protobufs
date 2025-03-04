@@ -20,19 +20,64 @@ if [ ! -d "generated/java" ] || [ -z "$(find generated/java -name '*.java')" ]; 
   ./tools/java/generate_java.sh
 fi
 
-# Step 2: Download protobuf-java dependency if needed
+# Step 1.5: Generate gRPC stubs (if not already done)
+if [ ! -f "generated/java/opensearch/proto/services/DocumentServiceGrpc.java" ] || [ ! -f "generated/java/opensearch/proto/services/SearchServiceGrpc.java" ]; then
+  echo "Generating gRPC stubs..."
+  ./tools/java/generate_grpc_java.sh
+fi
+
+# Step 2: Download protobuf-java and gRPC dependencies if needed
 PROTOBUF_VERSION="3.14.0"
+GRPC_VERSION="1.38.0"
+GUAVA_VERSION="31.0.1-jre"
+JAVAX_ANNOTATION_VERSION="1.3.2"
 PROTOBUF_JAR="${OUTPUT_DIR}/protobuf-java-${PROTOBUF_VERSION}.jar"
+GRPC_STUB_JAR="${OUTPUT_DIR}/grpc-stub-${GRPC_VERSION}.jar"
+GRPC_PROTOBUF_JAR="${OUTPUT_DIR}/grpc-protobuf-${GRPC_VERSION}.jar"
+GRPC_CORE_JAR="${OUTPUT_DIR}/grpc-core-${GRPC_VERSION}.jar"
+GRPC_API_JAR="${OUTPUT_DIR}/grpc-api-${GRPC_VERSION}.jar"
+GUAVA_JAR="${OUTPUT_DIR}/guava-${GUAVA_VERSION}.jar"
+JAVAX_ANNOTATION_JAR="${OUTPUT_DIR}/javax.annotation-api-${JAVAX_ANNOTATION_VERSION}.jar"
 
 if [ ! -f "${PROTOBUF_JAR}" ]; then
   echo "Downloading protobuf-java dependency..."
   curl -s -o "${PROTOBUF_JAR}" "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/${PROTOBUF_VERSION}/protobuf-java-${PROTOBUF_VERSION}.jar"
 fi
 
+if [ ! -f "${GRPC_STUB_JAR}" ]; then
+  echo "Downloading gRPC stub dependency..."
+  curl -s -o "${GRPC_STUB_JAR}" "https://repo1.maven.org/maven2/io/grpc/grpc-stub/${GRPC_VERSION}/grpc-stub-${GRPC_VERSION}.jar"
+fi
+
+if [ ! -f "${GRPC_PROTOBUF_JAR}" ]; then
+  echo "Downloading gRPC protobuf dependency..."
+  curl -s -o "${GRPC_PROTOBUF_JAR}" "https://repo1.maven.org/maven2/io/grpc/grpc-protobuf/${GRPC_VERSION}/grpc-protobuf-${GRPC_VERSION}.jar"
+fi
+
+if [ ! -f "${GRPC_CORE_JAR}" ]; then
+  echo "Downloading gRPC core dependency..."
+  curl -s -o "${GRPC_CORE_JAR}" "https://repo1.maven.org/maven2/io/grpc/grpc-core/${GRPC_VERSION}/grpc-core-${GRPC_VERSION}.jar"
+fi
+
+if [ ! -f "${GRPC_API_JAR}" ]; then
+  echo "Downloading gRPC API dependency..."
+  curl -s -o "${GRPC_API_JAR}" "https://repo1.maven.org/maven2/io/grpc/grpc-api/${GRPC_VERSION}/grpc-api-${GRPC_VERSION}.jar"
+fi
+
+if [ ! -f "${GUAVA_JAR}" ]; then
+  echo "Downloading Guava dependency..."
+  curl -s -o "${GUAVA_JAR}" "https://repo1.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar"
+fi
+
+if [ ! -f "${JAVAX_ANNOTATION_JAR}" ]; then
+  echo "Downloading javax.annotation dependency..."
+  curl -s -o "${JAVAX_ANNOTATION_JAR}" "https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/${JAVAX_ANNOTATION_VERSION}/javax.annotation-api-${JAVAX_ANNOTATION_VERSION}.jar"
+fi
+
 # Step 3: Compile Java files
 echo "Compiling Java files..."
 find generated/java -name "*.java" > "${OUTPUT_DIR}/sources.txt"
-javac -cp "${PROTOBUF_JAR}" -d "${OUTPUT_DIR}/classes" @"${OUTPUT_DIR}/sources.txt"
+javac -cp "${PROTOBUF_JAR}:${GRPC_STUB_JAR}:${GRPC_PROTOBUF_JAR}:${GRPC_CORE_JAR}:${GRPC_API_JAR}:${GUAVA_JAR}:${JAVAX_ANNOTATION_JAR}" -d "${OUTPUT_DIR}/classes" @"${OUTPUT_DIR}/sources.txt"
 
 # Step 3: Create POM file
 echo "Creating POM file..."
@@ -52,7 +97,37 @@ cat > "${OUTPUT_DIR}/META-INF/maven/${GROUP_ID}/${ARTIFACT_ID}/pom.xml" << EOF
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
-      <version>3.14.0</version>
+      <version>${PROTOBUF_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-stub</artifactId>
+      <version>${GRPC_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+      <version>${GRPC_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-core</artifactId>
+      <version>${GRPC_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-api</artifactId>
+      <version>${GRPC_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${GUAVA_VERSION}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>${JAVAX_ANNOTATION_VERSION}</version>
     </dependency>
   </dependencies>
 </project>

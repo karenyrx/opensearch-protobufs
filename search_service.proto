@@ -12,9 +12,11 @@
 syntax = "proto3";
 package opensearch.proto.services;
 
-import "protos/schemas/search.proto";
+option java_multiple_files = true;
+option java_package = "opensearch.proto.services";
+option java_outer_classname = "SearchServiceProto";
 
-option java_outer_classname = "SearchGrpcService";
+import "protos/schemas/search.proto";
 
 service SearchService {
   rpc Search(SearchRequest) returns (SearchResponse) {}
