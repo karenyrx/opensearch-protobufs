@@ -13,10 +13,20 @@ proto_library(
     visibility = ["//visibility:public"],
 )
 
+proto_library(
+    name = "search_service_proto",
+    srcs = ["search_service.proto"],
+    deps = [
+        "//protos/schemas:search_proto",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+
 # Java proto library
 java_proto_library(
     name = "protos_java",
-    deps = [":document_service_proto"],
+    deps = [":document_service_proto", ":search_service_proto"],
     visibility = ["//visibility:public"],
 )
 

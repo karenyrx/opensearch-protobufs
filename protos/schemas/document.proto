@@ -8,7 +8,6 @@ option java_package = "opensearch.proto";
 option java_outer_classname = "DocumentProto";
 option go_package = "opensearchpb";
 
-import "google/protobuf/wrappers.proto";
 import "protos/schemas/common.proto";
 
 
@@ -279,11 +278,11 @@ import "protos/schemas/common.proto";
    // [optional]
    ObjectMap fields = 1;
    // [optional] Whether the document exists.
-   .google.protobuf.BoolValue found = 2;
+   bool found = 2;
    // [optional] The sequence number assigned to the document for the operation. Sequence numbers are used to ensure an older version of a document doesn't overwrite a newer version
    optional int64 seq_no = 3;
    // [optional] The primary term assigned to the document for the operation.
-   .google.protobuf.Int64Value primary_term = 4;
+   int64 primary_term = 4;
    // [optional] Custom value used to route operations to a specific shard.
    repeated string routing = 5;
    // [optional] Contains the document's data

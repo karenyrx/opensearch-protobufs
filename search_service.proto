@@ -12,14 +12,10 @@
 syntax = "proto3";
 package opensearch.proto.services;
 
-import "protos/schemas/document.proto";
+import "protos/schemas/search.proto";
 
-option java_outer_classname = "DocumentGrpcService";
+option java_outer_classname = "SearchGrpcService";
 
-service DocumentService {
-  rpc Bulk(BulkRequest) returns (BulkResponse) {}
-}
-
-message TestMessage {
-  string field = 1;
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse) {}
 }
