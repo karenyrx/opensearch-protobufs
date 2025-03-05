@@ -10,7 +10,6 @@ option java_package = "opensearch.proto";
 option java_outer_classname = "SearchProto";
 option go_package = "opensearchpb";
 
-import "google/protobuf/descriptor.proto";
 import "google/protobuf/struct.proto";
 import "protos/schemas/common.proto";
 
