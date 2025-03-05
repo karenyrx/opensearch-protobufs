@@ -256,25 +256,25 @@ message SourceFilter {
 message ErrorCause {
 
   // The type of error
-  string type = 1;
+  optional string type = 1;
 
   // A human-readable explanation of the error, in english
-  string reason = 2;
+  optional string reason = 2;
 
   // The server stack trace. Present only if the `error_trace=true` parameter was sent with the request.
-  string stack_trace = 3;
+  optional string stack_trace = 3;
 
-  ErrorCause caused_by = 4;
+  optional ErrorCause caused_by = 4;
 
   repeated ErrorCause root_cause = 5;
 
   repeated ErrorCause suppressed = 6;
 
-  string index = 7;
+  optional string index = 7;
 
-  string shard = 8;
+  optional string shard = 8;
 
-  string index_uuid = 9;
+  optional string index_uuid = 9;
 
   .google.protobuf.Struct additional_details = 10;
 
