@@ -6,8 +6,12 @@ bazel build //...
 # Proto generated code
 ## Java
 ### Generate Java Code
-
+Delete generated folder:
+```
+rm -rf generated
+```
 1. Run the provided script to generate Java files from proto files:
+
 ```bash
 ./tools/java/generate_java.sh
 ```
