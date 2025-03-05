@@ -27,7 +27,7 @@ if [ ! -f "generated/java/opensearch/proto/services/DocumentServiceGrpc.java" ] 
 fi
 
 # Step 2: Download protobuf-java and gRPC dependencies if needed
-PROTOBUF_VERSION="3.14.0"
+PROTOBUF_VERSION="3.25.5"
 GRPC_VERSION="1.38.0"
 GUAVA_VERSION="31.0.1-jre"
 JAVAX_ANNOTATION_VERSION="1.3.2"
@@ -73,6 +73,14 @@ if [ ! -f "${JAVAX_ANNOTATION_JAR}" ]; then
   echo "Downloading javax.annotation dependency..."
   curl -s -o "${JAVAX_ANNOTATION_JAR}" "https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/${JAVAX_ANNOTATION_VERSION}/javax.annotation-api-${JAVAX_ANNOTATION_VERSION}.jar"
 fi
+
+# Step 2.5: Fix method signature clashes in generated code
+echo "Fixing method signature clashes in generated code..."
+# Create a backup of the original file
+cp generated/java/com/google/protobuf/DescriptorProtos.java generated/java/com/google/protobuf/DescriptorProtos.java.bak
+
+# Remove @Override annotations and fix method signatures for clearExtension methods
+sed -i 's/@java.lang.Override\s*public <Type> Builder clearExtension(/public Builder clearExtension(/g' generated/java/com/google/protobuf/DescriptorProtos.java
 
 # Step 3: Compile Java files
 echo "Compiling Java files..."
