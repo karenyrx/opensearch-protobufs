@@ -2,7 +2,7 @@
 # Script to package generated Java proto files into a Maven-compatible JAR
 
 # Configuration
-GROUP_ID="opensearch.proto"
+GROUP_ID="org.opensearch.protobuf"
 ARTIFACT_ID="opensearch-proto"
 VERSION="1.0.0"
 JAR_NAME="${ARTIFACT_ID}-${VERSION}.jar"

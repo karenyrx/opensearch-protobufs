@@ -36,5 +36,5 @@ rm -rf "$OUTPUT_DIR/protos"
 
 echo "Done! Generated Python files are in $OUTPUT_DIR"
 echo "You can import the generated code in Python with:"
-echo "from opensearch.proto import common_pb2, document_pb2"
-echo "from opensearch.proto.services import document_service_pb2"
+echo "from org.opensearch.protobuf import common_pb2, document_pb2"
+echo "from org.opensearch.protobuf.services import document_service_pb2"

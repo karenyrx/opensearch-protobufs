@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'opensearch.proto:opensearch-proto:1.0.0'
+    implementation 'org.opensearch.protobuf:opensearch-proto:1.0.0'
 }
 ```
 
@@ -72,8 +72,8 @@ This script will:
 
 You can import the generated code in Python with:
 ```python
-from opensearch.proto import common_pb2, document_pb2
-from opensearch.proto.services import document_service_pb2
+from org.opensearch.protobuf import common_pb2, document_pb2
+from org.opensearch.protobuf.services import document_service_pb2
 ```
 
 ## Go
