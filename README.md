@@ -1,8 +1,21 @@
 # opensearch-protobufs
+# Prerequisites
+Install protoc v25.1
+```
+PB_REL="https://github.com/protocolbuffers/protobuf/releases"
+curl -LO $PB_REL/download/v25.1/protoc-25.1-linux-x86_64.zip
+unzip protoc-25.1-linux-x86_64.zip -d $HOME/.local
+export PATH="$PATH:$HOME/.local/bin"
+```
+
+The follow command should output `v25.1`:
+```
+protoc --version
+```
 # Compile protos
 ```
-cd protos
 bazel build //...
+<!-- bazel build :protos_java -->
 ```
 # Proto generated code
 ## Java
