@@ -3,7 +3,7 @@
 
 # Configuration
 GROUP_ID="org.opensearch.protobuf"
-ARTIFACT_ID="opensearch-proto"
+ARTIFACT_ID="opensearch-protobuf"
 VERSION="1.0.0"
 JAR_NAME="${ARTIFACT_ID}-${VERSION}.jar"
 POM_NAME="${ARTIFACT_ID}-${VERSION}.pom"
