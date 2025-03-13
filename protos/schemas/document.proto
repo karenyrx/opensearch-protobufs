@@ -250,7 +250,6 @@ import "protos/schemas/common.proto";
    // [optional] HTTP status code returned for the operation.
    // todo use grpc status code instead
    optional int32 status = 4;
-   optional int32 grpc_status = 13;
 
    // [optional] Contains additional information about the failed operation.
    optional ErrorCause error = 5;
