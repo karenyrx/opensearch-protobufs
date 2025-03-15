@@ -14,8 +14,8 @@ protoc --version
 ```
 # Compile protos
 ```
-bazel build //...
-<!-- bazel build :protos_java -->
+<!-- bazel build //... -->
+bazel build :protos_java
 ```
 # Proto generated code
 ## Java
