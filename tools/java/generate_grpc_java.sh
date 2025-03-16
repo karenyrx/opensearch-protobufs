@@ -1,4 +1,5 @@
 #!/bin/bash
+set -vex
 # Script to generate Java gRPC stubs from proto files using protoc
 
 # Set up variables
@@ -38,5 +39,14 @@ protoc \
   --grpc-java_out="$OUTPUT_DIR" \
   --proto_path="$PROTO_DIR" \
   search_service.proto
+
+# Check if the gRPC stubs were generated
+if [ -f "$OUTPUT_DIR/org/opensearch/protobuf/services/DocumentServiceGrpc.java" ] && [ -f "$OUTPUT_DIR/org/opensearch/protobuf/services/SearchServiceGrpc.java" ]; then
+  echo "Successfully generated gRPC stubs!"
+else
+  echo "Warning: gRPC stubs may not have been generated correctly."
+  echo "Checking for gRPC stubs in the current directory..."
+  find . -name "*Grpc.java"
+fi
 
 echo "Done! Generated gRPC stubs are in $OUTPUT_DIR"
