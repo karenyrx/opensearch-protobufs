@@ -15,7 +15,6 @@ message WaitForActiveShards {
   enum WaitForActiveShardOptions {
     WAIT_FOR_ACTIVE_SHARD_OPTIONS_INVALID = 0;
     WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL = 1;
-    WAIT_FOR_ACTIVE_SHARD_OPTIONS_INDEX_SETTING = 2;
   }
 
   oneof wait_for_active_shards {
