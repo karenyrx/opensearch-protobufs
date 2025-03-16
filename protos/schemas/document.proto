@@ -127,8 +127,19 @@ message IndexOperation {
   optional int64 if_primary_term = 4;
   // [optional] Only perform the operation if the document has this sequence number
   optional int64 if_seq_no = 5;
+
+  enum OpType {
+    option (gogoproto.goproto_enum_prefix) = true;
+    OP_TYPE_INVALID = 0;
+    // Index a document only if it doesn't exist. Similarly as PUT <index>/_create/<_id>, will throw error if the document exist
+    OP_TYPE_CREATE = 1;
+    // A document ID is included in the request. default value.
+    OP_TYPE_INDEX = 2;
+  }
+  // [optional] Set to create to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. Same as using the `<index>/_create` endpoint. Valid values: `index`, `create`. If document id is specified, it defaults to `index`. Otherwise, it defaults to `create`.
+  optional string op_type = 7;
   // [optional] Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.
-  optional int64 version = 6;
+  optional int64 version = 7;
 
   enum VersionType {
     VERSION_TYPE_UNSPECIFIED = 0;
@@ -138,16 +149,17 @@ message IndexOperation {
     VERSION_TYPE_EXTERNAL_GTE = 2;
   }
   // [optional] Assigns a specific type to the document.
-  optional VersionType version_type = 7;
+  optional VersionType version_type = 8;
 
   // [optional] A map from the full name of fields to the name of dynamic templates. Defaults to an empty map. If a name matches a dynamic template, then that template will be applied regardless of other match predicates defined in the template. If a field is already defined in the mapping, then this parameter won't be used.
-  map<string, string> dynamic_templates = 8;
+  // TODO where is this used? remove it?
+  // map<string, string> dynamic_templates = 8;
 
   // [optional] ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.
-  optional string pipeline = 9;
+  optional string pipeline = 8;
 
   // [optional] If `true`, the request's actions must target an index alias. Defaults to false.
-  optional bool require_alias = 10;
+  optional bool require_alias = 9;
 
 }
 
@@ -177,13 +189,14 @@ message CreateOperation {
   VersionType version_type = 7;
 
   // [optional] A map from the full name of fields to the name of dynamic templates. Defaults to an empty map. If a name matches a dynamic template, then that template will be applied regardless of other match predicates defined in the template. If a field is already defined in the mapping, then this parameter won't be used.
-  map<string, string> dynamic_templates = 8;
+  // TODO where is this used? remove it?
+  // map<string, string> dynamic_templates = 8;
 
   // [optional] ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.
-  optional string pipeline = 9;
+  optional string pipeline = 8;
 
   // [optional] If `true`, the request's actions must target an index alias. Defaults to false.
-  optional bool require_alias = 10;
+  optional bool require_alias = 9;
 
 }
 
@@ -199,23 +212,10 @@ message UpdateOperation {
   optional int64 if_primary_term = 4;
   // [optional] Only perform the operation if the document has this sequence number
   optional int64 if_seq_no = 5;
-  // [optional] Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.
-  optional int64 version = 6;
-
-  enum VersionType {
-    VERSION_TYPE_UNSPECIFIED = 0;
-    // Retrieve the document if the specified version number is greater than the document's current version
-    VERSION_TYPE_EXTERNAL = 1;
-    // Retrieve the document if the specified version number is greater than or equal to the document's current version
-    VERSION_TYPE_EXTERNAL_GTE = 2;
-  }
-  // [optional] Assigns a specific type to the document.
-  VersionType version_type = 7;
-
   // [optional] If `true`, the request's actions must target an index alias. Defaults to false.
-  optional bool require_alias = 8;
+  optional bool require_alias = 6;
   // [optional] Specify how many times an update should be retried in the case of a version conflict.
-  optional int32 retry_on_conflict = 9;
+  optional int32 retry_on_conflict = 7;
 
 }
 
