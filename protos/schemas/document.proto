@@ -129,7 +129,7 @@ message IndexOperation {
   optional int64 if_seq_no = 5;
 
   enum OpType {
-    OP_TYPE_INVALID = 0;
+    OP_TYPE_UNSPECIFIED = 0;
     // Index a document only if it doesn't exist. Similarly as PUT <index>/_create/<_id>, will throw error if the document exist
     OP_TYPE_CREATE = 1;
     // A document ID is included in the request. default value.

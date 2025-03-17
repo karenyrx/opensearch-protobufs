@@ -13,7 +13,7 @@ import "google/protobuf/struct.proto";
 message WaitForActiveShards {
 
   enum WaitForActiveShardOptions {
-    WAIT_FOR_ACTIVE_SHARD_OPTIONS_INVALID = 0;
+    WAIT_FOR_ACTIVE_SHARD_OPTIONS_UNSPECIFIED = 0;
     WAIT_FOR_ACTIVE_SHARD_OPTIONS_ALL = 1;
   }
 
@@ -51,7 +51,7 @@ message InlineScript {
 
 message ScriptLanguage {
   enum BuiltinScriptLanguage {
-    BUILTIN_SCRIPT_LANGUAGE_INVALID = 0;
+    BUILTIN_SCRIPT_LANGUAGE_UNSPECIFIED = 0;
     BUILTIN_SCRIPT_LANGUAGE_EXPRESSION = 1;
     BUILTIN_SCRIPT_LANGUAGE_JAVA = 2;
     BUILTIN_SCRIPT_LANGUAGE_MUSTACHE = 3;
@@ -115,7 +115,7 @@ message ObjectMap {
 }
 
 enum NullValue {
-  NULL_VALUE_INVALID = 0;
+  NULL_VALUE_UNSPECIFIED = 0;
   NULL_VALUE_NULL = 1;
 }
 
@@ -123,7 +123,7 @@ enum NullValue {
 // - If not set, source is returned as bytes (default, recommended for better performance)
 // - If set to SOURCE_TYPE_STRUCT: source is returned as a structured protobuf message
 enum SourceType {
-  SOURCE_TYPE_INVALID = 0;
+  SOURCE_TYPE_UNSPECIFIED = 0;
   SOURCE_TYPE_STRUCT = 1;
 }
 
@@ -221,7 +221,7 @@ message RuntimeField {
   Script script = 6;
 
   enum RuntimeFieldType {
-    RUNTIME_FIELD_TYPE_INVALID = 0;
+    RUNTIME_FIELD_TYPE_UNSPECIFIED = 0;
     RUNTIME_FIELD_TYPE_BOOLEAN = 1;
     RUNTIME_FIELD_TYPE_DATE = 2;
     RUNTIME_FIELD_TYPE_DOUBLE = 3;
@@ -491,7 +491,7 @@ message NestedQuery {
   QueryContainer query = 6;
 
   enum ChildScoreMode {
-    CHILD_SCORE_MODE_INVALID = 0;
+    CHILD_SCORE_MODE_UNSPECIFIED = 0;
     CHILD_SCORE_MODE_AVG = 1;
     CHILD_SCORE_MODE_MAX = 2;
     CHILD_SCORE_MODE_MIN = 3;
@@ -562,7 +562,7 @@ message ScriptField {
 message Highlight {
 
   enum HighlighterType {
-    HIGHLIGHTER_TYPE_INVALID = 0;
+    HIGHLIGHTER_TYPE_UNSPECIFIED = 0;
     // The fvh highlighter uses the Lucene Fast Vector highlighter. This highlighter can be used on fields with term_vector set to with_positions_offsets in the mapping.
     HIGHLIGHTER_TYPE_FVH = 1;
     // The plain highlighter uses the standard Lucene highlighter. It attempts to reflect the query matching logic in terms of understanding word importance and any word positioning criteria in phrase queries.
@@ -581,7 +581,7 @@ message Highlight {
   int32 boundary_max_scan = 3;
 
   enum BoundaryScanner {
-    BOUNDARY_SCANNER_INVALID = 0;
+    BOUNDARY_SCANNER_UNSPECIFIED = 0;
     // Split highlighted fragments at any character listed in boundary_chars. Valid only for the fvh highlighter.
     BOUNDARY_SCANNER_CHARS = 1;
     // Split highlighted fragments at sentence boundaries, as defined by the BreakIterator. You can specify the BreakIterator's locale in the boundary_scanner_locale option.
@@ -600,7 +600,7 @@ message Highlight {
   bool force_source = 6;
 
   enum HighlighterFragmenter {
-    HIGHLIGHTER_FRAGMENTER_INVALID = 0;
+    HIGHLIGHTER_FRAGMENTER_UNSPECIFIED = 0;
     // Splits text into fragments of the same size.
     HIGHLIGHTER_FRAGMENTER_SIMPLE = 1;
     // Splits text into fragments of the same size but tries not to split text between highlighted terms.
@@ -632,7 +632,7 @@ message Highlight {
   ObjectMap options = 15;
 
   enum HighlighterOrder {
-    HIGHLIGHTER_ORDER_INVALID = 0;
+    HIGHLIGHTER_ORDER_UNSPECIFIED = 0;
     // Sort fragments by relevance.
     HIGHLIGHTER_ORDER_SCORE = 1;
   }
@@ -653,7 +653,7 @@ message Highlight {
   bool require_field_match = 20;
 
   enum HighlighterTagsSchema {
-    HIGHLIGHTER_TAGS_SCHEMA_INVALID = 0;
+    HIGHLIGHTER_TAGS_SCHEMA_UNSPECIFIED = 0;
     // Defines the following pre_tags and defines post_tags as </em>.
     HIGHLIGHTER_TAGS_SCHEMA_STYLED = 1;
   }
@@ -662,7 +662,7 @@ message Highlight {
   HighlighterTagsSchema tags_schema = 21;
 
   enum HighlighterEncoder {
-    HIGHLIGHTER_ENCODER_INVALID = 0;
+    HIGHLIGHTER_ENCODER_UNSPECIFIED = 0;
     // No encoding
     HIGHLIGHTER_ENCODER_DEFAULT = 1;
     // First escape the HTML text and then insert the highlighting tags
@@ -680,7 +680,7 @@ message Highlight {
 message HighlightField {
 
   enum HighlighterType {
-    HIGHLIGHTER_TYPE_INVALID = 0;
+    HIGHLIGHTER_TYPE_UNSPECIFIED = 0;
     // The fvh highlighter uses the Lucene Fast Vector highlighter. This highlighter can be used on fields with term_vector set to with_positions_offsets in the mapping.
     HIGHLIGHTER_TYPE_FVH = 1;
     // The plain highlighter uses the standard Lucene highlighter. It attempts to reflect the query matching logic in terms of understanding word importance and any word positioning criteria in phrase queries.
@@ -699,7 +699,7 @@ message HighlightField {
   int32 boundary_max_scan = 3;
 
   enum BoundaryScanner {
-    BOUNDARY_SCANNER_INVALID = 0;
+    BOUNDARY_SCANNER_UNSPECIFIED = 0;
     // Split highlighted fragments at any character listed in boundary_chars. Valid only for the fvh highlighter.
     BOUNDARY_SCANNER_CHARS = 1;
     // Split highlighted fragments at sentence boundaries, as defined by the BreakIterator. You can specify the BreakIterator's locale in the boundary_scanner_locale option.
@@ -718,7 +718,7 @@ message HighlightField {
   bool force_source = 6;
 
   enum HighlighterFragmenter {
-    HIGHLIGHTER_FRAGMENTER_INVALID = 0;
+    HIGHLIGHTER_FRAGMENTER_UNSPECIFIED = 0;
     // Splits text into fragments of the same size.
     HIGHLIGHTER_FRAGMENTER_SIMPLE = 1;
     // Splits text into fragments of the same size but tries not to split text between highlighted terms.
@@ -750,7 +750,7 @@ message HighlightField {
   ObjectMap options = 15;
 
   enum HighlighterOrder {
-    HIGHLIGHTER_ORDER_INVALID = 0;
+    HIGHLIGHTER_ORDER_UNSPECIFIED = 0;
     // Sort fragments by relevance.
     HIGHLIGHTER_ORDER_SCORE = 1;
   }
@@ -771,7 +771,7 @@ message HighlightField {
   bool require_field_match = 20;
 
   enum HighlighterTagsSchema {
-    HIGHLIGHTER_TAGS_SCHEMA_INVALID = 0;
+    HIGHLIGHTER_TAGS_SCHEMA_UNSPECIFIED = 0;
     // Defines the following pre_tags and defines post_tags as </em>.
     HIGHLIGHTER_TAGS_SCHEMA_STYLED = 1;
   }
@@ -821,7 +821,7 @@ message ScoreSort {
   // Specifies the sort order (asc or dsc) for the score.
   SortOrder order = 1;
   enum SortOrder {
-    SORT_ORDER_INVALID = 0;
+    SORT_ORDER_UNSPECIFIED = 0;
     // Sort in ascending order.
     SORT_ORDER_ASC = 1;
     // Sort in descending order
@@ -834,7 +834,7 @@ message GeoDistanceSort {
   // Specifies how to handle a field with several geopoints.
   SortMode mode = 1;
   enum SortMode {
-    SORT_MODE_INVALID = 0;
+    SORT_MODE_UNSPECIFIED = 0;
     // Use the average of all values as sort value. Only applicable for number based array fields.
     SORT_MODE_AVG = 1;
     // Pick the highest value.
@@ -851,7 +851,7 @@ message GeoDistanceSort {
   GeoDistanceType distance_type = 2;
 
   enum GeoDistanceType {
-    GEO_DISTANCE_TYPE_INVALID = 0;
+    GEO_DISTANCE_TYPE_UNSPECIFIED = 0;
     // Default
     GEO_DISTANCE_TYPE_ARC = 1;
     // Faster but less accurate for long distances or close to the poles.
@@ -865,7 +865,7 @@ message GeoDistanceSort {
   SortOrder order = 4;
 
   enum SortOrder {
-    SORT_ORDER_INVALID = 0;
+    SORT_ORDER_UNSPECIFIED = 0;
     // Sort in ascending order.
     SORT_ORDER_ASC = 1;
     // Sort in descending order
@@ -876,7 +876,7 @@ message GeoDistanceSort {
   DistanceUnit unit = 5;
 
   enum DistanceUnit {
-    DISTANCE_UNIT_INVALID = 0;
+    DISTANCE_UNIT_UNSPECIFIED = 0;
     DISTANCE_UNIT_CM = 1;
     DISTANCE_UNIT_FT = 2;
     DISTANCE_UNIT_IN = 3;
@@ -894,7 +894,7 @@ message ScriptSort {
   // [optional] Specifies the sort order (asc or dsc) for the score.
   SortOrder order = 1;
   enum SortOrder {
-    SORT_ORDER_INVALID = 0;
+    SORT_ORDER_UNSPECIFIED = 0;
     // Sort in ascending order.
     SORT_ORDER_ASC = 1;
     // Sort in descending order
@@ -907,7 +907,7 @@ message ScriptSort {
   // [optional] Specifies script sort type.
   ScriptSortType type = 3;
   enum ScriptSortType {
-    SCRIPT_SORT_TYPE_INVALID = 0;
+    SCRIPT_SORT_TYPE_UNSPECIFIED = 0;
     SCRIPT_SORT_TYPE_NUMBER = 1;
     SCRIPT_SORT_TYPE_STRING = 2;
     SCRIPT_SORT_TYPE_VERSION = 3;
@@ -916,7 +916,7 @@ message ScriptSort {
   // [optional] Specifies what array value should be chosen for sorting the document.
   SortMode mode = 4;
   enum SortMode {
-    SORT_MODE_INVALID = 0;
+    SORT_MODE_UNSPECIFIED = 0;
     // Use the average of all values as sort value. Only applicable for number based array fields.
     SORT_MODE_AVG = 1;
     // Pick the highest value.
@@ -1028,7 +1028,7 @@ message SimpleQueryStringQuery {
 
   Operator default_operator = 6;
   enum Operator {
-    OPERATOR_INVALID = 0;
+    OPERATOR_UNSPECIFIED = 0;
     OPERATOR_AND = 1;
     OPERATOR_OR = 2;
   }
@@ -1070,7 +1070,7 @@ message WildcardQuery {
 
   MultiTermQueryRewrite rewrite = 4;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE_BOOLEAN = 2;
     MULTI_TERM_QUERY_REWRITE_SCORING_BOOLEAN = 3;
@@ -1090,7 +1090,7 @@ message WildcardQuery {
 message PipeSeparatedFlagsSimpleQueryStringFlag {
 
   enum SimpleQueryStringFlag {
-    SIMPLE_QUERY_STRING_FLAG_INVALID = 0;
+    SIMPLE_QUERY_STRING_FLAG_UNSPECIFIED = 0;
     SIMPLE_QUERY_STRING_FLAG_ALL = 1;
     SIMPLE_QUERY_STRING_FLAG_AND = 2;
     SIMPLE_QUERY_STRING_FLAG_ESCAPE = 3;
@@ -1194,7 +1194,7 @@ message MatchQuery {
   // Default is constant_score.
   MultiTermQueryRewrite fuzzy_rewrite = 7;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     // Uses the constant_score_boolean method for fewer matching terms. Otherwise, this method finds all matching terms in sequence and returns matching documents using a bit set.
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     // Assigns each document a relevance score equal to the boost parameter.
@@ -1241,7 +1241,7 @@ message MatchQuery {
   // Default is OR.
   Operator operator = 12;
   enum Operator {
-    OPERATOR_INVALID = 0;
+    OPERATOR_UNSPECIFIED = 0;
     // All terms need to match. The string `to be` is interpreted as `to AND be`
     OPERATOR_AND = 1;
     // Only one term needs to match. The string `to be` is interpreted as `to OR be`
@@ -1275,7 +1275,7 @@ message MatchQuery {
   ZeroTermsQuery zero_terms_query = 15;
 
   enum ZeroTermsQuery {
-    ZERO_TERMS_QUERY_INVALID = 0;
+    ZERO_TERMS_QUERY_UNSPECIFIED = 0;
     // zero_terms_query specifies whether to match all documents (all).
     ZERO_TERMS_QUERY_ALL = 1;
     // zero_terms_query specifies whether to match no documents (none)
@@ -1368,7 +1368,7 @@ message FunctionScoreQuery {
   FunctionBoostMode boost_mode = 3;
 
   enum FunctionBoostMode {
-    FUNCTION_BOOST_MODE_INVALID = 0;
+    FUNCTION_BOOST_MODE_UNSPECIFIED = 0;
     FUNCTION_BOOST_MODE_AVG = 1;
     FUNCTION_BOOST_MODE_MAX = 2;
     FUNCTION_BOOST_MODE_MIN = 3;
@@ -1391,7 +1391,7 @@ message FunctionScoreQuery {
   FunctionScoreMode score_mode = 8;
 
   enum FunctionScoreMode {
-    FUNCTION_SCORE_MODE_INVALID = 0;
+    FUNCTION_SCORE_MODE_UNSPECIFIED = 0;
     FUNCTION_SCORE_MODE_AVG = 1;
     FUNCTION_SCORE_MODE_FIRST = 2;
     FUNCTION_SCORE_MODE_MAX = 3;
@@ -1556,7 +1556,7 @@ message PrefixQuery {
   // Default is constant_score.
   MultiTermQueryRewrite rewrite = 3;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     // Uses the constant_score_boolean method for fewer matching terms. Otherwise, this method finds all matching terms in sequence and returns matching documents using a bit set.
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     // Assigns each document a relevance score equal to the boost parameter.
@@ -1697,7 +1697,7 @@ message QueryStringQuery {
 
   Operator default_operator = 8;
   enum Operator {
-    OPERATOR_INVALID = 0;
+    OPERATOR_UNSPECIFIED = 0;
     OPERATOR_AND = 1;
     OPERATOR_OR = 2;
   }
@@ -1719,7 +1719,7 @@ message QueryStringQuery {
 
   MultiTermQueryRewrite fuzzy_rewrite = 15;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE_BOOLEAN = 2;
     MULTI_TERM_QUERY_REWRITE_SCORING_BOOLEAN = 3;
@@ -1760,7 +1760,7 @@ message QueryStringQuery {
 
   TextQueryType type = 27;
   enum TextQueryType {
-    TEXT_QUERY_TYPE_INVALID = 0;
+    TEXT_QUERY_TYPE_UNSPECIFIED = 0;
     TEXT_QUERY_TYPE_BEST_FIELDS = 1;
     TEXT_QUERY_TYPE_BOOL_PREFIX = 2;
     TEXT_QUERY_TYPE_CROSS_FIELDS = 3;
@@ -1811,7 +1811,7 @@ message RegexpQuery {
 
   MultiTermQueryRewrite rewrite = 6;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE_BOOLEAN = 2;
     MULTI_TERM_QUERY_REWRITE_SCORING_BOOLEAN = 3;
@@ -1834,7 +1834,7 @@ message DateRangeQuery {
 
   RangeRelation relation = 3;
   enum RangeRelation {
-    RANGE_RELATION_INVALID = 0;
+    RANGE_RELATION_UNSPECIFIED = 0;
     RANGE_RELATION_CONTAINS = 1;
     RANGE_RELATION_INTERSECTS = 2;
     RANGE_RELATION_WITHIN = 3;
@@ -1880,7 +1880,7 @@ message NumberRangeQuery {
 
   RangeRelation relation = 3;
   enum RangeRelation {
-    RANGE_RELATION_INVALID = 0;
+    RANGE_RELATION_UNSPECIFIED = 0;
     RANGE_RELATION_CONTAINS = 1;
     RANGE_RELATION_INTERSECTS = 2;
     RANGE_RELATION_WITHIN = 3;
@@ -1941,7 +1941,7 @@ message FuzzyQuery {
   // Default is constant_score.
   MultiTermQueryRewrite rewrite = 5;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     // Uses the constant_score_boolean method for fewer matching terms. Otherwise, this method finds all matching terms in sequence and returns matching documents using a bit set.
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     // Assigns each document a relevance score equal to the boost parameter.
@@ -2102,7 +2102,7 @@ message MatchBoolPrefixQuery {
   // Default is constant_score.
   MultiTermQueryRewrite fuzzy_rewrite = 5;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     // Uses the constant_score_boolean method for fewer matching terms. Otherwise, this method finds all matching terms in sequence and returns matching documents using a bit set.
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     // Assigns each document a relevance score equal to the boost parameter.
@@ -2143,7 +2143,7 @@ message MatchBoolPrefixQuery {
   // Default is or.
   Operator operator = 9;
   enum Operator {
-    OPERATOR_INVALID = 0;
+    OPERATOR_UNSPECIFIED = 0;
     // All terms need to match. The string `to be` is interpreted as `to AND be`
     OPERATOR_AND = 1;
     // Only one term needs to match. The string `to be` is interpreted as `to OR be`
@@ -2203,7 +2203,7 @@ message MatchPhrasePrefixQuery {
   // Default is none.
   ZeroTermsQuery zero_terms_query = 7;
   enum ZeroTermsQuery {
-    ZERO_TERMS_QUERY_INVALID = 0;
+    ZERO_TERMS_QUERY_UNSPECIFIED = 0;
     // zero_terms_query specifies whether to match all documents (all).
     ZERO_TERMS_QUERY_ALL = 1;
     // zero_terms_query specifies whether to match no documents (none)
@@ -2240,7 +2240,7 @@ message MatchPhraseQuery {
   // Default is none.
   ZeroTermsQuery zero_terms_query = 6;
   enum ZeroTermsQuery {
-    ZERO_TERMS_QUERY_INVALID = 0;
+    ZERO_TERMS_QUERY_UNSPECIFIED = 0;
     // zero_terms_query specifies whether to match all documents (all).
     ZERO_TERMS_QUERY_ALL = 1;
     // zero_terms_query specifies whether to match no documents (none)
@@ -2273,7 +2273,7 @@ message MultiMatchQuery {
   // If `true`, edits for fuzzy matching include transpositions of two adjacent characters (for example, `ab` to `ba`). Can be applied to the term subqueries constructed for all terms but the final term.
   MultiTermQueryRewrite fuzzy_transpositions = 9;
   enum MultiTermQueryRewrite {
-    MULTI_TERM_QUERY_REWRITE_INVALID = 0;
+    MULTI_TERM_QUERY_REWRITE_UNSPECIFIED = 0;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE = 1;
     MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE_BOOLEAN = 2;
     MULTI_TERM_QUERY_REWRITE_SCORING_BOOLEAN = 3;
@@ -2292,7 +2292,7 @@ message MultiMatchQuery {
 
   Operator operator = 13;
   enum Operator {
-    OPERATOR_INVALID = 0;
+    OPERATOR_UNSPECIFIED = 0;
     OPERATOR_AND = 1;
     OPERATOR_OR = 2;
   }
@@ -2311,7 +2311,7 @@ message MultiMatchQuery {
 
   TextQueryType type = 18;
   enum TextQueryType {
-    TEXT_QUERY_TYPE_INVALID = 0;
+    TEXT_QUERY_TYPE_UNSPECIFIED = 0;
     TEXT_QUERY_TYPE_BEST_FIELDS = 1;
     TEXT_QUERY_TYPE_BOOL_PREFIX = 2;
     TEXT_QUERY_TYPE_CROSS_FIELDS = 3;
@@ -2322,7 +2322,7 @@ message MultiMatchQuery {
 
   ZeroTermsQuery zero_terms_query = 19;
   enum ZeroTermsQuery {
-    ZERO_TERMS_QUERY_INVALID = 0;
+    ZERO_TERMS_QUERY_UNSPECIFIED = 0;
     ZERO_TERMS_QUERY_ALL = 1;
     ZERO_TERMS_QUERY_NONE = 2;
   }
@@ -2343,7 +2343,7 @@ message FieldValueFactorScoreFunction {
   FieldValueFactorModifier modifier = 4;
 
   enum FieldValueFactorModifier {
-    FIELD_VALUE_FACTOR_MODIFIER_INVALID = 0;
+    FIELD_VALUE_FACTOR_MODIFIER_UNSPECIFIED = 0;
     FIELD_VALUE_FACTOR_MODIFIER_LN = 1;
     FIELD_VALUE_FACTOR_MODIFIER_LN1P = 2;
     FIELD_VALUE_FACTOR_MODIFIER_LN2P = 3;
@@ -2360,7 +2360,7 @@ message FieldValueFactorScoreFunction {
 
 message DutchAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_DUTCH = 1;
   }
   Type type = 1;
@@ -2370,7 +2370,7 @@ message DutchAnalyzer{
 
 message FingerprintAnalyzer {
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_FINGERPRINT = 1;
   }
   Type type = 1;
@@ -2391,13 +2391,13 @@ message FingerprintAnalyzer {
 
 message IcuAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_ICU_ANALYZER = 1;
   }
   Type type = 1;
 
   enum IcuNormalizationType {
-    ICU_NORMALIZATION_TYPE_INVALID = 0;
+    ICU_NORMALIZATION_TYPE_UNSPECIFIED = 0;
     ICU_NORMALIZATION_TYPE_NFC = 1;
     ICU_NORMALIZATION_TYPE_NFKC = 2;
     ICU_NORMALIZATION_TYPE_NFKC_CF = 3;
@@ -2405,7 +2405,7 @@ message IcuAnalyzer{
   IcuNormalizationType method = 2;
 
   enum IcuNormalizationMode {
-    ICU_NORMALIZATION_MODE_INVALID = 0;
+    ICU_NORMALIZATION_MODE_UNSPECIFIED = 0;
     ICU_NORMALIZATION_MODE_COMPOSE = 1;
     ICU_NORMALIZATION_MODE_DECOMPOSE = 2;
   }
@@ -2416,7 +2416,7 @@ message IcuAnalyzer{
 //manual generate
 message KeywordAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_KEYWORD = 1;
   }
   Type type = 1;
@@ -2426,14 +2426,14 @@ message KeywordAnalyzer{
 
 message KuromojiAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_KUROMOJI = 1;
   }
   Type type = 1;
 
 
   enum Mode {
-    MODE_INVALID = 0;
+    MODE_UNSPECIFIED = 0;
     MODE_EXTENDED = 1;
     MODE_NORMAL = 2;
     MODE_SEARCH = 3;
@@ -2447,7 +2447,7 @@ message KuromojiAnalyzer{
 
 message LanguageAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_LANGUAGE = 1;
   }
   Type type = 1;
@@ -2455,7 +2455,7 @@ message LanguageAnalyzer{
   string version = 2;
 
   enum Language {
-    LANGUAGE_INVALID = 0;
+    LANGUAGE_UNSPECIFIED = 0;
     LANGUAGE_ARABIC = 1;
     LANGUAGE_ARMENIAN = 2;
     LANGUAGE_BASQUE = 3;
@@ -2505,7 +2505,7 @@ message LanguageAnalyzer{
 
 message NoriAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_NORI = 1;
   }
   Type type = 1;
@@ -2513,7 +2513,7 @@ message NoriAnalyzer{
   string version = 2;
 
   enum NoriDecompoundMode {
-    NORI_DECOMPOUND_MODE_INVALID = 0;
+    NORI_DECOMPOUND_MODE_UNSPECIFIED = 0;
     NORI_DECOMPOUND_MODE_NONE = 1;
     NORI_DECOMPOUND_MODE_DISCARD = 2;
     NORI_DECOMPOUND_MODE_MIXED = 3;
@@ -2528,7 +2528,7 @@ message NoriAnalyzer{
 
 message PatternAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_PATTERN = 1;
   }
   Type type = 1;
@@ -2547,7 +2547,7 @@ message PatternAnalyzer{
 
 message SimpleAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_SIMPLE = 1;
   }
   Type type = 1;
@@ -2557,7 +2557,7 @@ message SimpleAnalyzer{
 
 message SnowballAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_SNOWBALL = 1;
   }
   Type type = 1;
@@ -2565,7 +2565,7 @@ message SnowballAnalyzer{
   string version = 2;
 
   enum SnowballLanguage {
-    SNOWBALL_LANGUAGE_INVALID = 0;
+    SNOWBALL_LANGUAGE_UNSPECIFIED = 0;
     SNOWBALL_LANGUAGE_ARMENIAN = 1;
     SNOWBALL_LANGUAGE_BASQUE = 2;
     SNOWBALL_LANGUAGE_CATALAN = 3;
@@ -2597,7 +2597,7 @@ message SnowballAnalyzer{
 
 message StandardAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_STANDARD = 1;
   }
   Type type = 1;
@@ -2608,7 +2608,7 @@ message StandardAnalyzer{
 
 message StopAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_STOP = 1;
   }
   Type type = 1;
@@ -2622,7 +2622,7 @@ message StopAnalyzer{
 
 message WhitespaceAnalyzer{
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_WHITESPACE = 1;
   }
   Type type = 1;
@@ -2633,7 +2633,7 @@ message WhitespaceAnalyzer{
 
 message CustomAnalyzer {
   enum Type {
-    TYPE_INVALID = 0;
+    TYPE_UNSPECIFIED = 0;
     TYPE_CUSTOM = 1;
   }
 

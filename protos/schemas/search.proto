@@ -42,7 +42,7 @@ message SearchRequest {
    // [optional] Indicates whether the default operator for a string query should be AND or OR. Default is OR.
    optional Operator default_operator = 12;
    enum Operator {
-     OPERATOR_INVALID = 0;
+     OPERATOR_UNSPECIFIED = 0;
      // All terms need to match. The string `to be` is interpreted as `to AND be`
      OPERATOR_AND = 1;
      // Only one term needs to match. The string `to be` is interpreted as `to OR be`
@@ -55,7 +55,7 @@ message SearchRequest {
    // [optional] Specifies the type of index that wildcard expressions can match. Supports list of values. Default is open.
    repeated ExpandWildcard expand_wildcards = 15;
    enum ExpandWildcard {
-     EXPAND_WILDCARD_INVALID = 0;
+     EXPAND_WILDCARD_UNSPECIFIED = 0;
      // Match any index
      EXPAND_WILDCARD_ALL = 1;
      // Match closed, non-hidden indexes
@@ -108,7 +108,7 @@ message SearchRequest {
 
    optional SearchType search_type = 32;
    enum SearchType {
-     SEARCH_TYPE_INVALID = 0;
+     SEARCH_TYPE_UNSPECIFIED = 0;
      // Scores documents using global term and document frequencies across all shards. It's usually slower but more accurate.
      SEARCH_TYPE_DFS_QUERY_THEN_FETCH = 1;
      // Scores documents using local term and document frequencies for the shard. It's usually faster but less accurate.
@@ -127,7 +127,7 @@ message SearchRequest {
      optional Direction direction = 2;
 
      enum Direction {
-       DIRECTION_INVALID = 0;
+       DIRECTION_UNSPECIFIED = 0;
        DIRECTION_ASC = 1;
        DIRECTION_DESC = 2;
      }
@@ -144,7 +144,7 @@ message SearchRequest {
    // [optional] The mode to use when searching. This parameter can only be used when the `suggest_field` and `suggest_text` query string parameters are specified.
    optional SuggestMode suggest_mode = 39;
    enum SuggestMode {
-     SUGGEST_MODE_INVALID = 0;
+     SUGGEST_MODE_UNSPECIFIED = 0;
      // Use suggestions based on the provided terms
      SUGGEST_MODE_ALWAYS = 1;
      // Use suggestions for terms not in the index
@@ -288,7 +288,7 @@ message SearchRequest {
    // [required] Indicates whether the number of matching documents in the value parameter is accurate or a lower bound.
    TotalHitsRelation relation = 1;
    enum TotalHitsRelation {
-     TOTAL_HITS_RELATION_INVALID = 0;
+     TOTAL_HITS_RELATION_UNSPECIFIED = 0;
      // Accurate
      TOTAL_HITS_RELATION_EQ = 1;
      // Lower bound
@@ -406,7 +406,7 @@ message SearchRequest {
  message ClusterDetails {
 
    enum ClusterSearchStatus {
-     CLUSTER_SEARCH_STATUS_INVALID = 0;
+     CLUSTER_SEARCH_STATUS_UNSPECIFIED = 0;
      // The search failed on a cluster marked with skip_unavailable=false
      CLUSTER_SEARCH_STATUS_FAILED = 1;
      // Searches on at least one shard of the cluster was successful and at least one failed
