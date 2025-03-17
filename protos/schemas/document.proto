@@ -56,7 +56,7 @@ message BulkRequest {
   // - If set to SOURCE_TYPE_STRUCT: source is returned as a structured protobuf message
   // Note: Using SOURCE_TYPE_STRUCT may impact performance due to additional serialization overhead
   // Note: This diverges from the API spec.
-  SourceType source_type = 13;
+  optional SourceType source_type = 13;
 }
 
 message BulkRequestBody {
@@ -93,7 +93,7 @@ message BulkRequestBody {
   optional bool scripted_upsert = 9;
 
   // [optional] Defines how to fetch a source. Fetching can be disabled entirely, or the source can be filtered.
-  SourceConfig source = 10;
+  optional SourceConfig source = 10;
 
   // [optional] If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed. it's only supported for the `update` operation.
   // Provide doc as either an ObjectMap or bytes
@@ -185,7 +185,7 @@ message CreateOperation {
     VERSION_TYPE_EXTERNAL_GTE = 2;
   }
   // [optional] Assigns a specific type to the document.
-  VersionType version_type = 7;
+  optional VersionType version_type = 7;
 
   // [optional] A map from the full name of fields to the name of dynamic templates. Defaults to an empty map. If a name matches a dynamic template, then that template will be applied regardless of other match predicates defined in the template. If a field is already defined in the mapping, then this parameter won't be used.
   // TODO where is this used? remove it?
