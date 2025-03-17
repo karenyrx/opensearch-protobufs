@@ -77,12 +77,7 @@ message BulkRequestBody {
   optional bool detect_noop = 5;
 
   // [optional] The partial document to index. Required for update, index operations
-  // Provide doc as either an ObjectMap or bytes
-  oneof bulk_request_body_doc {
-    ObjectMap doc = 6;
-    // Use bytes for better latency/performance, as it reduces payload size over the wire
-    bytes bytes_doc = 15;
-  }
+  optional bytes doc = 15;
 
   // [optional] When `true`, uses the contents of 'doc' as the value of 'upsert'. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field. it's only supported for the `update` operation.
   optional bool doc_as_upsert = 7;
@@ -96,22 +91,10 @@ message BulkRequestBody {
   optional SourceConfig source = 10;
 
   // [optional] If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed. it's only supported for the `update` operation.
-  // Provide doc as either an ObjectMap or bytes
-  oneof bulk_request_body_upsert {
-    ObjectMap upsert = 13;
+  optional bytes upsert = 16;
 
-    // Use bytes for better latency/performance, as it reduces payload size over the wire
-    bytes bytes_upsert = 16;
-  }
-
-  // [optional] The document to index. Required for create operation
-  // Provide bulk request as either ObjectMap or bytes
-  oneof bulk_request_body_object {
-    ObjectMap object = 14;
-
-    // Use bytes for better latency/performance, as it reduces payload size over the wire
-    bytes bytes_object = 17;
-  }
+  // Use bytes for better latency/performance, as it reduces payload size over the wire
+  optional bytes object = 17;
 }
 
 message IndexOperation {
@@ -327,7 +310,7 @@ message ResponseItem {
 
 message InlineGetDictUserDefined {
   // [optional]
-  ObjectMap fields = 1;
+  optional ObjectMap fields = 1;
   // [optional] Whether the document exists.
   // TODO why is this an optional field?
   optional bool found = 2;
@@ -338,10 +321,5 @@ message InlineGetDictUserDefined {
   // [optional] Custom value used to route operations to a specific shard.
   repeated string routing = 5;
   // [optional] Contains the document's data
-  oneof inline_get_dict_user_defined_source {
-    // struct_source will be returned upon explicit request by user
-    .google.protobuf.Struct struct_source = 6;
-    // Use bytes for better latency/performance, as it reduces payload size over the wire
-    bytes source = 7;
-  }
+  optional bytes source = 7;
 }
