@@ -1,120 +1,23 @@
 # opensearch-protobufs
-# Prerequisites
-Install protoc v25.1
-```
-PB_REL="https://github.com/protocolbuffers/protobuf/releases"
-curl -LO $PB_REL/download/v25.1/protoc-25.1-linux-x86_64.zip
-unzip protoc-25.1-linux-x86_64.zip -d $HOME/.local
-export PATH="$PATH:$HOME/.local/bin"
-```
 
-The follow command should output `v25.1`:
-```
-protoc --version
-```
-# Compile protos
-```
-<!-- bazel build //... -->
-bazel build :protos_java
-```
-# Proto generated code
-## Java
-### Generate Java Code
-Delete generated folder:
-```
-rm -rf generated
-```
-1. Run the provided script to generate Java files from proto files:
+This repository stores the Protobufs and generated code used for client <> server GRPC APIs.
 
-```bash
-./tools/java/generate_java.sh
-```
+The [opensearch-api-specification repo](https://github.com/opensearch-project/opensearch-api-specification)  will continue to be the source of truth, and these protobufs will mostly be a downstream consumer of the spec.
 
-This script will:
-- Build the Java proto library using Bazel
-- Find all source JAR files containing generated Java code
-- Extract the Java files to the `generated/java` directory
+This repository will also include a variety of tooling and CI, linters and validators, and generated code, described in more default below.
 
-2. You can find the generated Java files in the `generated/java` directory:
-```bash
-find generated/java -name "*.java" | sort
-```
+## Intended usage of the repo
+The repo will consist of:
+1. **Protobufs**
+    - Raw `*.proto` files based on the API spec
+    - Build files/tooling to compile the protobufs
 
-### Packaging as a Maven/Gradle dependency
+2. **Generated code:**
+    - The generated code for Java/Go/Python/etc languages, which can be imported as jars/packages into the downstream repos that need them. Having already packaged generated protobuf code makes it easy to import into the various repos (e.g. `OpenSearch` core, `opensearch-java-client`, `opensearch-python`, `opensearch-benchmark`, etc) and avoids duplicate efforts to regenerate them in every single repository.
 
-To package the generated Java files into a Maven-compatible JAR that can be used as a Gradle dependency:
+3. **Tooling and CI**
+    - Tooling to [auto generate the `*.proto` files from the `opensearch-api-specification`](https://github.com/opensearch-project/opensearch-api-specification/issues/677) and [GHAs](https://github.com/opensearch-project/opensearch-api-specification/issues/653) to trigger the conversion scripts
+    - Tooling (i.e Bazel files / scripts) to produce the protobuf generated code using `protoc`, and CI to trigger it automatically upon `.proto` file changes
 
-1. Run the provided script:
-```bash
-./tools/java/package_proto_jar.sh
-```
-
-This script will:
-- Generate Java files from proto files (if not already done)
-- Download the protobuf-java dependency
-- Compile the Java files
-- Create a Maven-compatible JAR file
-- Install the JAR to your local Maven repository
-
-2. To use the JAR in a Gradle project, add the following to your build.gradle:
-```groovy
-repositories {
-    mavenLocal()
-}
-
-dependencies {
-    implementation 'org.opensearch.protobuf:opensearch-protobuf:1.0.0'
-}
-```
-
-
-## Python
-
-### Generate Python Code
-TODO: The script uses a raw protoc command right now. Ideally, it should use bazel in the future.
-
-Run the provided script to generate Python files from proto files:
-```bash
-./tools/python/generate_python.sh
-```
-
-This script will:
-- Use protoc to generate Python code from proto files
-- Create the necessary directory structure with __init__.py files
-- Organize the generated files in the `generated/python` directory
-
-You can import the generated code in Python with:
-```python
-from org.opensearch.protobuf import common_pb2, document_pb2
-from org.opensearch.protobuf.services import document_service_pb2
-```
-
-## Go
-
-### Generate Go Code
-TODO: The script uses a raw protoc command right now. Ideally, it should use bazel in the future.
-
-Run the provided script to generate Go files from proto files:
-```bash
-./tools/go/generate_go.sh
-```
-
-This script will:
-- Use protoc to generate Go code from proto files
-- Create the necessary directory structure
-- Create a go.mod file for the generated code
-- Place the generated files in the `generated/go` directory
-
-You can import the generated code in Go with:
-```go
-import "github.com/opensearch/proto"
-import "github.com/opensearch/proto/services"
-```
-
-# Ignored files
-
-All generated files are excluded from version control via the `.gitignore` file. This includes:
-- Bazel generated files (bazel-*)
-- Generated files (generated/)
-- Compiled class files (*.class)
-- Package files (*.jar)
+4. **Linters/Validators (TBD)**
+    - Tooling to validate and lint the generated `*.proto` files, to ensure they conform to Google's protobuf best practices, as well as conventions established within the OpenSearch org (more important for any portions that are hand-rolled)
