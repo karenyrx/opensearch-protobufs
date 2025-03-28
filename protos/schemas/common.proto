@@ -57,7 +57,7 @@ message ScriptLanguage {
     BUILTIN_SCRIPT_LANGUAGE_MUSTACHE = 3;
     BUILTIN_SCRIPT_LANGUAGE_PAINLESS = 4;
   }
-  // [required]
+  // [optional] Default is painless.
   oneof script_language {
     BuiltinScriptLanguage builtin_script_language = 1;
     string string_value = 2;
