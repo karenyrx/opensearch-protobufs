@@ -363,31 +363,31 @@ message SearchResponseBody {
   optional bool timed_out = 4;
 
   // [optional] Phase-level took time values in the response.
-  optional PhaseTook phase_took = 5;
+  // optional PhaseTook phase_took = 5;
 
   // [optional] When you search one or more remote clusters, a `_clusters` section is included to provide information about the search on each cluster.
-  optional ClusterStatistics clusters = 6;
+  // optional ClusterStatistics clusters = 6;
 
   // [optional] Retrieved specific fields in the search response
-  optional ObjectMap fields = 7;
+  // optional ObjectMap fields = 7;
 
   // [optional] Highest returned document _score.
-  optional float max_score = 8; // TODO where is this used? remove?
+  // optional float max_score = 8; // TODO where is this used? remove? // remove this TODO
 
   // [optional] The number of times that the coordinating node aggregates results from batches of shard responses
-  optional int32 num_reduce_phases = 9;
+  // optional int32 num_reduce_phases = 9;
 
   // [optional] Contains profiling information.
-  Profile profile = 10;
+  // Profile profile = 10;
 
   // [optional] The PIT ID.
-  optional string pit_id = 11;
+  // optional string pit_id = 11;
 
   // [optional] Identifier for the search and its search context.
-  optional string scroll_id = 12;
+  // optional string scroll_id = 12;
 
   // [optional] If the query was terminated early, the terminated_early flag will be set to true in the response
-  optional bool terminated_early = 13;
+  // optional bool terminated_early = 13;
 
 }
 
@@ -465,7 +465,7 @@ message Hit {
   // [optional] Source document.
   optional bytes source = 1;
   
-  optional string type = 16;
+  // optional string type = 16;
 
   // [required] Name of the index containing the returned document.
   string index = 2;
@@ -484,53 +484,53 @@ message Hit {
   optional Score score = 4;
 
   // [optional] Explanation of how the relevance score (_score) is calculated for every result.
-  optional Explanation explanation = 5;
+  // optional Explanation explanation = 5;
 
   // [optional] Contains field values for the documents.
-  optional ObjectMap fields = 6;
+  // optional ObjectMap fields = 6;
 
   // [optional] An additional highlight element for each search hit that includes the highlighted fields and the highlighted fragments.
-  map<string, StringArray> highlight = 7;
+  // map<string, StringArray> highlight = 7;
 
   // [optional] An additional nested hits that caused a search hit to match in a different scope.
-  map<string, InnerHitsResult> inner_hits = 8;
+  // map<string, InnerHitsResult> inner_hits = 8;
 
   // [optional] List of matched query names used in the search request.
-  repeated string matched_queries = 9;
+  // repeated string matched_queries = 9;
 
   // [optional] Defines from what inner nested object this inner hit came from
-  optional NestedIdentity nested = 10;
+  // optional NestedIdentity nested = 10;
 
   // [optional] List of fields ignored.
-  repeated string ignored = 11;
+  // repeated string ignored = 11;
 
   // [optional] These values are retrieved from the document’s original JSON source and are raw so will not be formatted or treated in any way, unlike the successfully indexed fields which are returned in the fields section.
-  map<string, StringArray> ignored_field_values = 12;
+  // map<string, StringArray> ignored_field_values = 12;
 
   // [optional] Shard from which this document was retrieved.
-  optional string shard = 13;
+  // optional string shard = 13;
 
   // [optional] Node from which this document was retrieved.
-  optional string node = 14;
+  // optional string node = 14;
 
-  optional string routing = 15;
+  // optional string routing = 15;
 
 
   // [optional] Counts the number of operations that happened on the index
-  optional int64 seq_no = 17;
+  // optional int64 seq_no = 17;
 
   // [optional] Counts the number of shard has changed.
-  optional int64 primary_term = 18;
+  // optional int64 primary_term = 18;
 
   // [optional] Version number of the document.
-  optional int64 version = 19;
+  // optional int64 version = 19;
 
   // [optional] Sorted values
-  repeated FieldValue sort = 20;
+  // repeated FieldValue sort = 20;
   
   // [optional] Contains metadata values for the documents.
   // TODO: No field named "meta_fields" in the spec. Needs adaptor_unnest.
-  optional ObjectMap meta_fields = 21;
+  // optional ObjectMap meta_fields = 21;
 }
 
 message ClusterStatistics {
