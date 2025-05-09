@@ -472,16 +472,16 @@ message Hit {
   // [required] Unique identifier for the returned document. This ID is only unique within the returned index.
   string id = 3;
 
-  message Score {
-    oneof score{
-      float float_value = 1;
-      string string_value = 2;
-      NullValue null_value = 3;
-    }
-  }
+  // message Score {
+  //   oneof score{
+  //     float float_value = 1;
+  //     string string_value = 2;
+  //     NullValue null_value = 3;
+  //   }
+  // }
 
   // [optional] Relevance of the returned document.
-  optional Score score = 4;
+  optional float score = 4;
 
   // [optional] Explanation of how the relevance score (_score) is calculated for every result.
   optional Explanation explanation = 5;
