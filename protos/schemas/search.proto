@@ -350,20 +350,20 @@ message Error5xxResponse {
 //// The response body from a search/index-search request.
 message ResponseBody {
 
+  // [required] Contains returned documents and metadata.
+  HitsMetadata hits = 1;
+  
+  // [required] Contains a count of shards used for the request.
+  ShardStatistics shards = 2;
+  
   // [required] Milliseconds it took Elasticsearch to execute the request.
-  optional int64 took = 1;
+  optional int64 took = 3;
 
   // [required]  If true, the request timed out before completion; returned results may be partial or empty.
-  optional bool timed_out = 2;
-
-  // [required] Contains a count of shards used for the request.
-  ShardStatistics shards = 3;
+  optional bool timed_out = 4;
 
   // [optional] Phase-level took time values in the response.
-  optional PhaseTook phase_took = 4;
-
-  // [required] Contains returned documents and metadata.
-  HitsMetadata hits = 5;
+  optional PhaseTook phase_took = 5;
 
   // [optional] When you search one or more remote clusters, a `_clusters` section is included to provide information about the search on each cluster.
   optional ClusterStatistics clusters = 6;
@@ -409,6 +409,10 @@ message PhaseTook {
 }
 
 message HitsMetadata {
+  
+  // [required] Array of returned document objects.
+  repeated Hit hits = 1;
+  
   message Total {
     oneof total{
       TotalHits total_hits = 1;
@@ -416,10 +420,8 @@ message HitsMetadata {
     }
   }
   // [optional] Metadata about the number of matching documents.
-  Total total = 1;
+  Total total = 2;
 
-  // [required] Array of returned document objects.
-  repeated Hit hits = 2;
 
   message MaxScore{
     oneof max_score{
@@ -459,7 +461,11 @@ message InnerHitsResult {
 
 message Hit {
 
-  optional string type = 1;
+  
+  // [optional] Source document.
+  optional bytes source = 1;
+  
+  optional string type = 16;
 
   // [required] Name of the index containing the returned document.
   string index = 2;
@@ -509,8 +515,6 @@ message Hit {
 
   optional string routing = 15;
 
-  // [optional] Source document.
-  optional bytes source = 16;
 
   // [optional] Counts the number of operations that happened on the index
   optional int64 seq_no = 17;
