@@ -248,7 +248,7 @@ run_tests "after"
 echo "===== Testing BEFORE version (without your chqanges) ====="
 # git revert -n 5520c0dfac16c4ae97115827c05f7c4f41c60593 # remove objectmap
 # git revert -n 2cbaac24e91c88ddac76e951379ae7a2f9b1baa9 # change objectmap to bytes
-git revert -n f1c4cdc3f137bd4ac4c5dd1a0a1001c9ea9f2638 # simplify score oneof
+git revert -n 2d8ff52c428e89377eabe5fd1b2b1983ebd55391 # simplify score oneof
 # git revert -n eb259089cbb15377560a12cba60288e8685e04ef # shard as int
 
 build_and_deploy "before"
