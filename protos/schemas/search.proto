@@ -498,7 +498,7 @@ message Hit {
   map<string, StringArray> ignored_field_values = 12;
 
   // [optional] Shard from which this document was retrieved.
-  optional string shard = 13;
+  optional int32 shard = 13;
 
   // [optional] Node from which this document was retrieved.
   optional string node = 14;
