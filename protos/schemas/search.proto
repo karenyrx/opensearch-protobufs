@@ -481,7 +481,7 @@ message Hit {
   optional Explanation explanation = 5;
 
   // [optional] Contains field values for the documents.
-  optional ObjectMap fields = 6;
+  optional bytes fields = 6;
 
   // [optional] An additional highlight element for each search hit that includes the highlighted fields and the highlighted fragments.
   map<string, StringArray> highlight = 7;
@@ -502,7 +502,7 @@ message Hit {
   map<string, StringArray> ignored_field_values = 12;
 
   // [optional] Shard from which this document was retrieved.
-  optional string shard = 13;
+  optional int32 shard = 13;
 
   // [optional] Node from which this document was retrieved.
   optional string node = 14;
@@ -526,7 +526,7 @@ message Hit {
   
   // [optional] Contains metadata values for the documents.
   // TODO: No field named "meta_fields" in the spec. Needs adaptor_unnest.
-  optional ObjectMap meta_fields = 21;
+  optional bytes meta_fields = 21;
 }
 
 message ClusterStatistics {
