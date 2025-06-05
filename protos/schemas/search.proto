@@ -418,76 +418,8 @@ message HitsMetadata {
   // [optional] Metadata about the number of matching documents.
   Total total = 1;
 
-  // [required] Name of the index containing the returned document.
-  repeated string index = 2;
-  // [required] Unique identifier for the returned document. This ID is only unique within the returned index.
-  repeated string id = 3;
-
-  message Score {
-    oneof score{
-      float float_value = 1;
-      string string_value = 2;
-      NullValue null_value = 3;
-    }
-  }
-
-  // [optional] Relevance of the returned document.
-  repeated Score score = 4;
-
-  // [optional] Explanation of how the relevance score (_score) is calculated for every result.
-  repeated Explanation explanation = 5;
-
-  // [optional] Contains field values for the documents.
-  repeated bytes fields = 6;
-
-  // [optional] An additional highlight element for each search hit that includes the highlighted fields and the highlighted fragments.
-  //TODO not an array 
-  map<string, StringArray> highlight = 7;
-
-  // [optional] An additional nested hits that caused a search hit to match in a different scope.
-  // TODO not an array
-  map<string, InnerHitsResult> inner_hits = 8;
-
-  // [optional] List of matched query names used in the search request.
-  repeated StringArray matched_queries = 9;
-
-  // [optional] Defines from what inner nested object this inner hit came from
-  repeated NestedIdentity nested = 10;
-
-  // [optional] List of fields ignored.
-  repeated string ignored = 11;
-
-  // [optional] These values are retrieved from the document’s original JSON source and are raw so will not be formatted or treated in any way, unlike the successfully indexed fields which are returned in the fields section.
-  // TODO not an array
-  map<string, StringArray> ignored_field_values = 12;
-
-  // [optional] Shard from which this document was retrieved.
-  repeated int32 shard = 13;
-
-  // [optional] Node from which this document was retrieved.
-  repeated string node = 14;
-
-  repeated string routing = 15;
-
-  // [optional] Source document.
-  repeated bytes source = 16;
-
-  // [optional] Counts the number of operations that happened on the index
-  repeated int64 seq_no = 17;
-
-  // [optional] Counts the number of shard has changed.
-  repeated int64 primary_term = 18;
-
-  // [optional] Version number of the document.
-  repeated int64 version = 19;
-
-  // [optional] Sorted values
-  // TODO not an array
-  repeated FieldValue sort = 20;
-  
-  // [optional] Contains metadata values for the documents.
-  // TODO: No field named "meta_fields" in the spec. Needs adaptor_unnest.
-  repeated bytes meta_fields = 21;
+  // [required] Array of returned document objects.
+  repeated Hit hits = 2;
 
   message MaxScore{
     oneof max_score{
@@ -498,9 +430,8 @@ message HitsMetadata {
   }
 
   // [optional] Highest returned document _score.
-  MaxScore max_score = 22;
+  MaxScore max_score = 3;
 
-  repeated string type = 23;
 }
 
 message TotalHits {
@@ -526,6 +457,77 @@ message InnerHitsResult {
 
 }
 
+message Hit {
+
+  optional string type = 1;
+
+  // [required] Name of the index containing the returned document.
+  string index = 2;
+  // [required] Unique identifier for the returned document. This ID is only unique within the returned index.
+  string id = 3;
+
+  message Score {
+    oneof score{
+      float float_value = 1;
+      string string_value = 2;
+      NullValue null_value = 3;
+    }
+  }
+
+  // [optional] Relevance of the returned document.
+  optional Score score = 4;
+
+  // [optional] Explanation of how the relevance score (_score) is calculated for every result.
+  optional Explanation explanation = 5;
+
+  // [optional] Contains field values for the documents.
+  optional bytes fields = 6;
+
+  // [optional] An additional highlight element for each search hit that includes the highlighted fields and the highlighted fragments.
+  map<string, StringArray> highlight = 7;
+
+  // [optional] An additional nested hits that caused a search hit to match in a different scope.
+  map<string, InnerHitsResult> inner_hits = 8;
+
+  // [optional] List of matched query names used in the search request.
+  repeated string matched_queries = 9;
+
+  // [optional] Defines from what inner nested object this inner hit came from
+  optional NestedIdentity nested = 10;
+
+  // [optional] List of fields ignored.
+  repeated string ignored = 11;
+
+  // [optional] These values are retrieved from the document’s original JSON source and are raw so will not be formatted or treated in any way, unlike the successfully indexed fields which are returned in the fields section.
+  map<string, StringArray> ignored_field_values = 12;
+
+  // [optional] Shard from which this document was retrieved.
+  optional int32 shard = 13;
+
+  // [optional] Node from which this document was retrieved.
+  optional string node = 14;
+
+  optional string routing = 15;
+
+  // [optional] Source document.
+  optional bytes source = 16;
+
+  // [optional] Counts the number of operations that happened on the index
+  optional int64 seq_no = 17;
+
+  // [optional] Counts the number of shard has changed.
+  optional int64 primary_term = 18;
+
+  // [optional] Version number of the document.
+  optional int64 version = 19;
+
+  // [optional] Sorted values
+  repeated FieldValue sort = 20;
+  
+  // [optional] Contains metadata values for the documents.
+  // TODO: No field named "meta_fields" in the spec. Needs adaptor_unnest.
+  optional bytes meta_fields = 21;
+}
 
 message ClusterStatistics {
 
