@@ -249,7 +249,8 @@ echo "===== Testing BEFORE version (without your chqanges) ====="
 # git revert -n 5520c0dfac16c4ae97115827c05f7c4f41c60593 # remove objectmap
 # git revert -n 2cbaac24e91c88ddac76e951379ae7a2f9b1baa9 # change objectmap to bytes
 # git revert -n 2d8ff52c428e89377eabe5fd1b2b1983ebd55391 # simplify score oneof
-git revert -n c71a9bf9e8fae60d53923e8b9ebe64db81d93594 # shard as int
+# git revert -n c71a9bf9e8fae60d53923e8b9ebe64db81d93594 # shard as int
+git revert -n 9d87117363f88c4e22b41480e3f4b6145e15f5cc # separate Hit repeated
 
 build_and_deploy "before"
 cd protobuf_performance_results
