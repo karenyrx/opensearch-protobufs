@@ -459,19 +459,23 @@ message InnerHitsResult {
 
 message Hit {
 
-  optional string type = 22;
+  optional string type = 1;
 
   // [required] Name of the index containing the returned document.
   string index = 2;
   // [required] Unique identifier for the returned document. This ID is only unique within the returned index.
   string id = 3;
 
-  // how to add optional field?
-  oneof score_oneof {
-    float score = 1;
-    string string_score = 23;
-    NullValue null_score = 24;
-  } 
+  message Score {
+    oneof score{
+      float float_value = 1;
+      string string_value = 2;
+      NullValue null_value = 3;
+    }
+  }
+
+  // [optional] Relevance of the returned document.
+  optional Score score = 4;
 
   // [optional] Explanation of how the relevance score (_score) is calculated for every result.
   optional Explanation explanation = 5;
