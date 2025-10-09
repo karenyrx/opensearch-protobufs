@@ -75,12 +75,37 @@ dependencies {
 ```
 
 ## Python
-### Generate and install Python Code 
+### Generate and install Python Code
 
 Generate the wheel file with bazel and install the packag with pip:
 ```
 bazel build //:opensearch_protos_wheel
 pip install bazel-bin/opensearch_protos-*-py3-none-any.whl
+```
+
+## Go
+### Generate and package Go Code
+
+To package the generated Go files into a tarball that can be used as a Go module, run the provided script:
+```bash
+./tools/go/package_proto_go.sh -c true
+```
+
+This script will:
+- Generate Go files from proto files using Bazel
+- Copy generated files to a clean directory structure
+- Fix import paths to use proper Go module paths
+- Create a go.mod file with proper module path and dependencies
+- Validate that the Go code compiles successfully
+- Create a tarball for distribution
+
+To use in your Go project:
+```bash
+# Download from GitHub releases
+tar -xzf opensearch-protobufs-go.tar.gz
+
+# Use as a local module replacement in your go.mod
+go mod edit -replace github.com/opensearch-project/opensearch-protobufs/go=./path/to/go
 ```
 
 # Protobuf Convert Process

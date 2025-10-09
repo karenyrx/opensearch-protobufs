@@ -52,9 +52,28 @@ docker build --target test-bazel-go .
 Each OpenSearch Protobufs release includes:
 
 - **Java Archive**: `opensearch-protobufs-java.tar.gz` - Maven-compatible JAR files for Java/Gradle projects
+- **Go Module Archive**: `opensearch-protobufs-go.tar.gz` - Go module with generated protobuf files
+- **Python Wheel**: `opensearch_protobufs-{version}-py3-none-any.whl` - Python package for PyPI
 - **Protobuf ZIP**: `opensearch-protobufs-{version}.zip` - Raw `.proto` files for generating client libraries in any language
 
 Download the latest release from the [GitHub Releases page](https://github.com/opensearch-project/opensearch-protobufs/releases).
+
+### Using Go Module Archive
+
+1. Download `opensearch-protobufs-go.tar.gz` from releases:
+
+2. Extract the tarball:
+```bash
+tar -xzf opensearch-protobufs-go.tar.gz
+cd go
+```
+
+3. Use in your Go project:
+```bash
+# Copy to your project's vendor directory or use as a local module
+# Or reference via go.mod replace directive
+go mod edit -replace github.com/opensearch-project/opensearch-protobufs/go=./path/to/go
+```
 
 ### Using Raw Proto Files
 

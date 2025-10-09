@@ -6,6 +6,7 @@ name: Release drafter
 # - opensearch-protobufs-java.tar.gz (Java/Maven artifacts)
 # - opensearch-protobufs-{version}.zip (Raw proto files)
 # - opensearch_protobufs-{version}-py3-none-any.whl (Python/PyPI artifacts)
+# - opensearch-protobufs-go.tar.gz (Go module artifacts)
 
 on:
   push:
@@ -42,6 +43,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.19'
       - name: Build with Gradle
         run: |
           ./tools/java/package_proto_jar.sh -c true -s false
@@ -54,6 +59,10 @@ jobs:
           mkdir -p dist
           bazel build //:opensearch_protos_wheel
           mv bazel-bin/opensearch_protobufs-*-py3-none-any.whl dist/
+      - name: Build go with bazel
+        run: |
+          ./tools/go/package_proto_go.sh -c true
+          tar -C generated -czf "opensearch-protobufs-go.tar.gz" go
       - name: Publish python artifacts to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
       - name: Draft a release
@@ -64,4 +73,5 @@ jobs:
           files: |
             opensearch-protobufs-java.tar.gz
             dist/opensearch_protobufs-*-py3-none-any.whl
+            opensearch-protobufs-go.tar.gz
             opensearch-protobufs-*.zip
