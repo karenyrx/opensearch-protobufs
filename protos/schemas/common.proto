@@ -213,9 +213,6 @@ message SearchRequestBody {
 
   // Defines the aggregations that are run as part of the search request.
   map<string, AggregationContainer> aggregations = 36;
-
-  // Defines the aggregations that are run as part of the search request.
-  map<string, AggregationContainer> aggs = 37;
 }
 
 message DerivedField {
@@ -2933,8 +2930,10 @@ message Aggregate {
 
 message AggregationContainer {
 
-  // The custom metadata attached to a resource.
+  // Custom metadata to associate with the aggregation (optional)
   optional ObjectMap meta = 1;
+
+  string field = 5;
   oneof aggregation_container {
     MaxAggregation max = 2;
 
@@ -3012,21 +3011,19 @@ message MaxAggregate {
 
 message MaxAggregation {
 
-  // The custom metadata attached to a resource.
+  // Custom metadata to associate with the aggregation (optional)
   optional ObjectMap meta = 1;
 
-  optional string name = 2;
-
-  optional FieldValue missing = 3;
+  optional FieldValue missing = 2;
 
   // The path to a field or an array of paths. Some APIs support wildcards in the path, which allows you to select multiple fields.
-  optional string field = 4;
+  optional string field = 3;
 
-  optional Script script = 5;
+  optional Script script = 4;
 
-  optional string format = 6;
+  optional string format = 5;
 
-  optional ValueType value_type = 7;
+  optional ValueType value_type = 6;
 }
 
 message MinAggregate {
@@ -3041,21 +3038,19 @@ message MinAggregate {
 
 message MinAggregation {
 
-  // The custom metadata attached to a resource.
+  // Custom metadata to associate with the aggregation (optional)
   optional ObjectMap meta = 1;
 
-  optional string name = 2;
-
-  optional FieldValue missing = 3;
+  optional FieldValue missing = 2;
 
   // The path to a field or an array of paths. Some APIs support wildcards in the path, which allows you to select multiple fields.
-  optional string field = 4;
+  optional string field = 3;
 
-  optional Script script = 5;
+  optional Script script = 4;
 
-  optional string format = 6;
+  optional string format = 5;
 
-  optional ValueType value_type = 7;
+  optional ValueType value_type = 6;
 }
 
 message SingleMetricAggregateBaseAllOfValue {
@@ -3126,51 +3121,46 @@ message TermsAggregateBaseVoidAllOfBuckets {
 
 message TermsAggregation {
 
-  // The custom metadata attached to a resource.
+  // Custom metadata to associate with the aggregation (optional)
   optional ObjectMap meta = 1;
 
-  optional string name = 2;
-
   // Sub-aggregations for this bucket aggregation
-  map<string, AggregationContainer> aggregations = 3;
+  optional AggregationContainer aggregations = 2;
 
-  // Sub-aggregations for this bucket aggregation
-  map<string, AggregationContainer> aggs = 4;
+  optional TermsAggregationCollectMode collect_mode = 3;
 
-  optional TermsAggregationCollectMode collect_mode = 5;
+  repeated string exclude = 4;
 
-  repeated string exclude = 6;
+  optional TermsAggregationExecutionHint execution_hint = 5;
 
-  optional TermsAggregationExecutionHint execution_hint = 7;
-
-  optional TermsInclude include = 8;
+  optional TermsInclude include = 6;
 
   // Only return values that are found in more than `min_doc_count` hits.
-  optional int64 min_doc_count = 9;
+  optional int64 min_doc_count = 7;
 
-  optional FieldValue missing = 10;
+  optional FieldValue missing = 8;
 
   // Coerced unmapped fields into the specified type.
-  optional ValueType value_type = 11;
+  optional ValueType value_type = 9;
 
   // The number of candidate terms produced by each shard. By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.
-  optional int32 shard_size = 12;
+  optional int32 shard_size = 10;
 
   // The minimum number of documents in a bucket on each shard for it to be returned.
-  optional int64 shard_min_doc_count = 13;
+  optional int64 shard_min_doc_count = 11;
 
   // Set to `true` to return the `doc_count_error_upper_bound`, which is an upper bound to the error on the `doc_count` returned by each shard.
-  optional bool show_term_doc_count_error = 14;
+  optional bool show_term_doc_count_error = 12;
 
   // The number of buckets returned out of the overall terms list.
-  optional int32 size = 15;
+  optional int32 size = 13;
 
-  optional string format = 16;
+  optional string format = 14;
 
   // The path to a field or an array of paths. Some APIs support wildcards in the path, which allows you to select multiple fields.
-  optional string field = 17;
+  optional string field = 15;
 
-  optional Script script = 18;
+  optional Script script = 16;
 }
 
 message TermsInclude {
@@ -3559,16 +3549,14 @@ enum ValueType {
   VALUE_TYPE_DATE = 3;
   VALUE_TYPE_DOUBLE = 4;
   VALUE_TYPE_FLOAT = 5;
-  VALUE_TYPE_GEO_POINT = 6;
-  VALUE_TYPE_INTEGER = 7;
-  VALUE_TYPE_IP = 8;
-  VALUE_TYPE_LONG = 9;
-  VALUE_TYPE_NUMBER = 10;
-  VALUE_TYPE_NUMERIC = 11;
-  VALUE_TYPE_RANGE = 12;
-  VALUE_TYPE_SHORT = 13;
-  VALUE_TYPE_STRING = 14;
-  VALUE_TYPE_UNSIGNED_LONG = 15;
+  VALUE_TYPE_INTEGER = 6;
+  VALUE_TYPE_IP = 7;
+  VALUE_TYPE_LONG = 8;
+  VALUE_TYPE_NUMBER = 9;
+  VALUE_TYPE_NUMERIC = 10;
+  VALUE_TYPE_SHORT = 11;
+  VALUE_TYPE_STRING = 12;
+  VALUE_TYPE_UNSIGNED_LONG = 13;
 }
 
 message ObjectMap {
