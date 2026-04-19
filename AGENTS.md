@@ -153,6 +153,13 @@ fixed up post-generation. See the comment in `BUILD.bazel` and the
   a public Apache-2.0 project; everything must build from a clean clone with
   only public dependencies.
 
+## Task-specific runbooks
+
+For recurring narrow tasks (CVE triage, etc.) follow the playbooks
+under [`docs/agents/`](./docs/agents/). They are vendor-neutral
+markdown — any agent or human can follow them. Index lives in
+[`docs/agents/README.md`](./docs/agents/README.md).
+
 ## Useful references
 
 - [README.md](./README.md) — user-facing intro and language usage examples
