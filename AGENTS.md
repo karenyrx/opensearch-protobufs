@@ -1,70 +1,113 @@
 # AGENTS.md
 
-Guidance for AI coding assistants (Claude Code, Codex, Cursor, Aider,
-Cline, etc.) working in this repository. Human contributors should
-start with [`README.md`](./README.md) and
-[`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md). This file follows the
-[agents.md](https://agents.md) cross-tool convention so a single
-document serves every assistant.
-
 ## Repository overview
 
 `opensearch-protobufs` holds the Protocol Buffer schemas and gRPC
 service definitions for the OpenSearch client ↔ server gRPC API,
 along with generated client libraries for Java, Python, and Go.
 
-- **Source of truth for the API shape**: the
-  [`opensearch-api-specification`](https://github.com/opensearch-project/opensearch-api-specification)
-  repo. This repo is a *downstream consumer* — proto changes typically
-  follow spec changes, not the other way around.
-- **License**: Apache-2.0.
+The [`opensearch-api-specification`](https://github.com/opensearch-project/opensearch-api-specification)
+repo is the source of truth for the API shape; this repo is a
+*downstream consumer*. Proto changes typically follow spec changes,
+not the other way around.
 
-For build commands and packaging recipes see
-[`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md).
+License: Apache-2.0.
 
-## Conventions
+## Build
 
-### Proto changes
+Bazel version is pinned in `.bazelversion` — install that exact
+version. Generate proto libraries:
 
-- **Check the spec first.** If you are adding or renaming a field, look
-  in `opensearch-api-specification` before editing `.proto` files
-  directly.
-- **Backward compatibility is non-negotiable.** Generated clients in
-  the wild depend on field numbers and names. Never reuse or renumber a
-  field. If a field is going away, mark it `reserved`. Run
-  `npm run backward-compat` before opening a PR.
+```
+bazel build //:java_protos_all
+bazel build //:python_protos_all
+bazel build //:go_protos_all
+bazel build //:java_protos_all //:python_protos_all //:go_protos_all   # all three
+```
+
+Package the Java Maven JAR:
+
+```
+rm -rf generated && bazel build //:java_protos_all && ./tools/java/package_proto_jar.sh
+```
+
+Hermetic Docker builds are also available — see
+[`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md) for `build-bazel-{java,python,go}`
+and `test-bazel-{java,python,go}` targets.
+
+## Testing
+
+```
+npm install
+npm test                       # jest tests for the TypeScript tooling
+npm run backward-compat        # checks generated protos remain backward-compatible
+npm run postprocessing         # backward-compat + cleanup-unused passes
+```
+
+For Bazel proto code, run the relevant `bazel build` target — proto
+generation failures show up at build time, not in a separate test
+phase.
+
+## Proto changes
+
+- **Check the spec first.** If you are adding or renaming a field,
+  look in `opensearch-api-specification` before editing `.proto`
+  files directly.
+- **Never reuse or renumber a field.** Generated clients in the wild
+  depend on field numbers and names. If a field is going away, mark
+  it `reserved`.
+- **Always run `npm run backward-compat`** before opening a PR; review
+  its output.
 - **proto3 optional is enabled** (`--experimental_allow_proto3_optional`
   in `.bazelrc`). Use `optional` explicitly when presence matters.
 - **Naming**: snake_case for fields, PascalCase for messages and
-  services; match the casing used in the corresponding spec entity.
-- **Don't hand-edit generated code** under `generated/` — it is rebuilt
-  from `.proto` files.
+  services. Match the casing used in the corresponding spec entity.
+- **Don't hand-edit generated code** under `generated/` — it is
+  rebuilt from `.proto` files.
 
-### Bazel
+When adding a new `.proto` file, wire it into the appropriate
+`protos/<dir>/BUILD.bazel` *and* into the language aggregates in the
+top-level `BUILD.bazel` (`java_protos_all`, `python_protos_all`,
+`go_protos_all`). Forgetting the second step is a common mistake — the
+file will compile in isolation but never reach the published artifact.
 
-- New proto files go in the appropriate `protos/<dir>/BUILD.bazel` and
-  must be wired into the language aggregates in the top-level
-  `BUILD.bazel` (`java_protos_all`, `python_protos_all`,
-  `go_protos_all`).
-- `bzlmod` is disabled (`common --noenable_bzlmod`). Add dependencies
-  through `WORKSPACE`, not `MODULE.bazel`.
+## Bazel
 
-### Python packaging gotcha
+`bzlmod` is disabled (`common --noenable_bzlmod` in `.bazelrc`). Add
+dependencies through `WORKSPACE`, not `MODULE.bazel`.
+
+## Python packaging gotcha
 
 `protoc` does not emit a `package` option for Python, so import paths
-must be fixed up post-generation. See the comment in `BUILD.bazel` and
-the `generate_pyi_files` genrule before changing Python proto
+must be fixed up post-generation. See the comment in `BUILD.bazel`
+and the `generate_pyi_files` genrule before changing Python proto
 generation.
 
-## Contribution workflow
+## Commits
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full process. The
-agent-relevant deltas:
+DCO sign-off is required on every commit (`git commit -s`) and must
+use the contributor's real name — not a GitHub handle. Commit titles
+should focus on user impact, not implementation:
 
-- **DCO sign-off is required on every commit** (`git commit -s`), and
-  it must use the contributor's real name — not a GitHub handle.
-- **Keep PRs scoped** to one logical change. Don't bundle drive-by
-  cleanup with a security or schema change.
+- Good: `Bump axios to 1.15.0 (CVE-2026-40175)`
+- Bad: `Update package.json deps and lockfile`
+
+Wrap titles at ~50 chars and bodies at ~72.
+
+## Pull Requests
+
+Always push to your fork. Never push directly to
+`opensearch-project/opensearch-protobufs`. Open the PR with:
+
+```
+gh pr create --repo opensearch-project/opensearch-protobufs \
+  --head <your-fork-user>:<branch> --base main \
+  --title "<title>" --body "<body>"
+```
+
+Keep PRs scoped to one logical change. Don't bundle drive-by cleanup
+with a security or schema change. Update `CHANGELOG.md` for any
+user-visible change.
 
 ## What agents should NOT do without explicit human direction
 
@@ -81,9 +124,8 @@ agent-relevant deltas:
   this is a public Apache-2.0 project; everything must build from a
   clean clone with only public dependencies.
 
-## Task-specific runbooks
+## Runbooks
 
-For recurring narrow tasks (CVE triage, generating protos locally,
-release cuts, etc.) see [`docs/agents/`](./docs/agents/). The directory
-is currently a placeholder; runbooks will be added there as we extract
-them from real workflows.
+Task-specific playbooks (CVE triage, generating protos locally,
+release cuts, etc.) live in [`docs/agents/`](./docs/agents/) as
+they're extracted from real workflows.
